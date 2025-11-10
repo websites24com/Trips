@@ -1,0 +1,13 @@
+extends base
+
+block content
+  include _tourTemplate
+
+      // Mapbox CSS goes into <head> BEFORE your site CSS
+      block prepend head
+      link(rel="stylesheet", href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css")
+
+      // Scripts go at the end of <body>
+      block append scripts
+      script(src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js" crossorigin="anonymous")
+     

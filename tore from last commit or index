@@ -1,0 +1,35 @@
+[33mcommit 6cd2e695004cd301f1bc8ae2c4ecb747f764aeb4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: websites24com <office@websites-24.com>
+Date:   Wed Oct 29 16:23:23 2025 -0500
+
+    Pug
+
+[33mcommit 0831c419a7902008f9eb524cf6f8fc37a072c9e8[m
+Author: websites24com <office@websites-24.com>
+Date:   Fri Oct 17 14:33:01 2025 -0500
+
+    sanitization
+
+[33mcommit d2cf9106a6ec5e3cf637c502e92a4ae12b828aae[m
+Author: Alex <websites@hello-24.com>
+Date:   Mon Oct 13 15:07:20 2025 -0500
+
+    progress JWT
+
+[33mcommit 96bb6054bc4bc748ba371fe2c23741067bce6e1e[m
+Author: Alex <websites@hello-24.com>
+Date:   Mon Oct 6 22:21:19 2025 -0500
+
+    Errors
+
+[33mcommit 82a7840e7eb868623165bf46a22634e6c6a3b04a[m
+Author: Alex <websites@hello-24.com>
+Date:   Tue Sep 30 21:45:52 2025 -0500
+
+    Mongoose
+
+[33mcommit 360733b172b1586d83fb8795ac75271cc1f3dfd8[m
+Author: Alex <websites@hello-24.com>
+Date:   Mon Sep 29 22:54:53 2025 -0500
+
+    setting App & Models
