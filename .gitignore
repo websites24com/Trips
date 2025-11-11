@@ -47,3 +47,4 @@ Thumbs.db
 .parcel-cache
 public/dist
 
+config.env
