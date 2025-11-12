@@ -1,30 +1,62 @@
 require('dotenv').config();
+const pug = require('pug');
 const nodemailer = require('nodemailer');
+const htmlToText = require('html-to-text');
 
-// configure the AttHost transporter
-const sendEmail = async (options) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10),
-    secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+module.exports = class Email {
+  constructor(user, url) {
+    this.to = user.email;
+    this.firstName = user.name.split(' ')[0];
+    this.url = url;
+    this.from = `Support Tours <${process.env.EMAIL_FROM}>`;
+  }
 
-  /**
-   * Send email via AttHost SMTP
-   */
-  const mailOptions = {
-    from: process.env.SMTP_USER,
-    to: options.email,
-    subject: options.subject,
-    html: options.html,
-    text: options.text || options.html?.replace(/<[^>]+>/g, ' ').trim(),
-  };
+  newTransport() {
+    if (process.env.NODE_ENV === 'production') {
+      // Sendgrid
+      return 1;
+    }
 
-  console.log(mailOptions);
-  await transporter.sendMail(mailOptions);
+    return nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT, 10),
+      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+  }
+
+  // Send the actual email
+  async send(template, subject) {
+    // 1) Render HTML based on pug template
+
+    const html = pug.renderFile(
+      `${__dirname}/../views/emails/${template}.pug`,
+      {
+        firstName: this.firstName,
+        url: this.url,
+        subject,
+      },
+    );
+
+    // 2) Define email options
+
+    const mailOptions = {
+      from: this.from,
+      to: this.to,
+      subject,
+      html,
+      text: htmlToText.fromString(html),
+    };
+
+    // 3) Create a transport and send email
+
+    await this.newTransport().sendMail(mailOptions);
+  }
+
+  async sendWelcome() {
+    await this.send('welcome', 'Welcome to the Natours Family');
+  }
 };
-module.exports = sendEmail;
