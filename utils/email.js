@@ -1,7 +1,7 @@
 require('dotenv').config();
 const pug = require('pug');
 const nodemailer = require('nodemailer');
-const htmlToText = require('html-to-text');
+const { convert } = require('html-to-text');
 
 module.exports = class Email {
   constructor(user, url) {
@@ -32,14 +32,11 @@ module.exports = class Email {
   async send(template, subject) {
     // 1) Render HTML based on pug template
 
-    const html = pug.renderFile(
-      `${__dirname}/../views/emails/${template}.pug`,
-      {
-        firstName: this.firstName,
-        url: this.url,
-        subject,
-      },
-    );
+    const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
+      firstName: this.firstName,
+      url: this.url,
+      subject,
+    });
 
     // 2) Define email options
 
@@ -48,7 +45,7 @@ module.exports = class Email {
       to: this.to,
       subject,
       html,
-      text: htmlToText.fromString(html),
+      text: convert(html),
     };
 
     // 3) Create a transport and send email

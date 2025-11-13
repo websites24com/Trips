@@ -10,7 +10,7 @@ const AppError = require('../utils/appError');
 
 const catchAsync = require('../utils/catchAsync');
 
-const sendEmail = require('../utils/email');
+const Email = require('../utils/email');
 
 //Here, because there’s no { } block, the value of jwt.sign(...) is automatically returned — that’s called an implicit return.
 
@@ -55,6 +55,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     role,
   });
 
+  const url = `${req.protocol}://${req.get('host')}/me`;
+  console.log(url);
+  await new Email(newUser, url).sendWelcome();
   // jwt.sign(payload, secretOrPrivateKey, [options, callback])
 
   createSendToken(newUser, 201, res);
@@ -192,11 +195,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const message = `Forgot your password? Please click the link to reset your password ${restURL}. Hurry up! Your link is valid only 10 minutes. \n If you did not forget your password, please ignore this message!`;
 
   try {
-    await sendEmail({
-      email: user.email,
-      subject: 'Your password reset token ( vailid for 10 minutes)',
-      text: message,
-    });
+    // await sendEmail({
+    //   email: user.email,
+    //   subject: 'Your password reset token ( vailid for 10 minutes)',
+    //   text: message,
+    // });
 
     res.status(200).json({
       status: 'success',
