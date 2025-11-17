@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const path = require('path');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -150,6 +151,10 @@ app.use((req, res, next) => {
   // console.log(req.cookies);
   next();
 });
+
+// Compression
+
+app.use(compression());
 
 // Users routes
 app.use('/api/v1/users', userRouter);

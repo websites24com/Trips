@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+import API_BASE from '../../utils/url';
 import axios from 'axios';
 import { showAlert } from './alerts';
 
@@ -8,8 +8,8 @@ export const updateSettings = async (data, type) => {
   try {
     const url =
       type === 'password'
-        ? 'http://localhost:3000/api/v1/users/updateMyPassword'
-        : 'http://localhost:3000/api/v1/users/updateMe';
+        ? `${API_BASE}/api/v1/users/updateMyPassword`
+        : `${API_BASE}/api/v1/users/updateMe`;
 
     const res = await axios({
       method: 'PATCH',

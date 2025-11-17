@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+import API_BASE from '../../utils/url';
 import axios from 'axios';
 
 import { showAlert } from './alerts';
@@ -8,7 +8,7 @@ export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      url: `${API_BASE}/api/v1/users/login`,
       data: { email, password },
     });
 
@@ -25,7 +25,7 @@ export const login = async (email, password) => {
 export const logout = async () => {
   try {
     const res = await axios({
-      url: 'http://localhost:3000/api/v1/users/logout',
+      url: `${API_BASE}/api/v1/users/logout`,
     });
 
     if (res.data.status === 'success') window.location.reload(true); // 'true' force reload from the server, not cache (legacy)
