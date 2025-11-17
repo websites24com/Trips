@@ -19,7 +19,7 @@
     "format": "prettier --write .",
     "debug": "ndb node server.js",
     "parcel:watch": "parcel watch public/js/main.js --target public",
-    "parcel:build": "parcel build public/js/main.js --target public --no-content-hash --no-scope-hoist",
+    "parcel:build": "parcel build public/js/main.js --target public",
     "dev": "concurrently -k -n SERVER,PARCEL -c green,cyan \"nodemon server.js\" \"npm:parcel:watch\""
   },
   "repository": {
