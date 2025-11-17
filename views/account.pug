@@ -14,18 +14,18 @@ block content
       nav.user-view__menu
         ul.side-nav
           +navItem('#', 'Settings', 'settings', true)
-          +navItem('#', 'My bookings', 'briefcase', false)  
+          +navItem('/my-tours', 'My bookings', 'briefcase', false)  
           +navItem('#', 'My reviews', 'star', false)
           +navItem('#', 'Billing', 'credit-card', false)
 
         - if(user.role === 'admin')
-        .admin-nav
-          h5.admin-nav__heading Admin
-          ul.side-nav
-            +navItem('#', 'Manage tours', 'map', false)
-            +navItem('#', 'Manage users', 'users', false)
-            +navItem('#', 'Manage reviews', 'star', false)
-            +navItem('#', 'Manage bookings', 'briefcase', false)
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('#', 'Manage tours', 'map', false)
+              +navItem('#', 'Manage users', 'users', false)
+              +navItem('#', 'Manage reviews', 'star', false)
+              +navItem('#', 'Manage bookings', 'briefcase', false)
 
 
       .user-view__content

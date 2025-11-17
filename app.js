@@ -13,6 +13,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 
 // Creating exprersss app
 const app = express();
@@ -37,11 +38,13 @@ const commonDirectives = {
     'https://api.mapbox.com',
     'https://cdn.jsdelivr.net',
     'https://cdnjs.cloudflare.com',
+    'https://js.stripe.com',
   ],
   styleSrc: [
     "'self'",
     'https:',
     "'unsafe-inline'", // Mapbox GL CSS needs inline styles
+    'https://api.stripe.com',
   ],
   connectSrc: ["'self'", 'https://api.mapbox.com', 'https://events.mapbox.com'],
   imgSrc: [
@@ -50,6 +53,11 @@ const commonDirectives = {
     'blob:',
     'https://api.mapbox.com',
     'https://*.tiles.mapbox.com',
+    'https://js.stripe.com',
+  ],
+  frameSrc: [
+    "'self'",
+    'https://js.stripe.com', // 👈 for Stripe-hosted iframes/checkout
   ],
   workerSrc: ["'self'", 'blob:'],
   objectSrc: ["'none'"],
@@ -151,6 +159,9 @@ app.use('/api/v1/tours', tourRouter);
 
 // Review routes
 app.use('/api/v1/reviews', reviewRouter);
+
+// Booking routes
+app.use('/api/v1/bookings', bookingRouter);
 
 // Rendering routes (views) should always be last
 app.use('/', viewRouter);
