@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const path = require('path');
@@ -16,7 +17,6 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const bookingController = require('./controllers/bookingController');
-const cors = require('cors');
 
 // Creating exprersss app
 const app = express();
@@ -28,8 +28,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Implement CORS
 
-app.use(cors);
-app.options('*', cors());
+app.use(cors());
+app.options('/*splat', cors());
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
