@@ -15,6 +15,8 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
+const cors = require('cors');
 
 // Creating exprersss app
 const app = express();
@@ -23,6 +25,11 @@ const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+// Implement CORS
+
+app.use(cors);
+app.options('*', cors());
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -107,6 +114,14 @@ const limiter = rateLimit({
 
 // Apply the rate limiting middleware to all requests.
 app.use('/api/', limiter);
+
+// Stripe Webhooks - it must be above body parser as we need STRING  not the JSON
+
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout,
+);
 
 // qs allows you to create nested objects within your query strings, by surrounding the name of sub-keys with square brackets []. eg. [gte]=5
 app.set('query parser', (str) =>
