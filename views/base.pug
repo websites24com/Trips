@@ -13,7 +13,7 @@ html
             script(src="https://js.stripe.com/clover/stripe.js" async)
             
             
-    body
+    body(data-alert=`${alert ? alert : ''}`)
         // HEADER
         include _header
 

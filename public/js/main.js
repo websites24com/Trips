@@ -12,6 +12,7 @@ import { bookTour } from './stripe';
 
 // Named import for the login function
 import { login, logout } from './login';
+import { showAlert } from './alerts';
 
 // DOM ELEMENTS
 
@@ -80,3 +81,6 @@ if (bookBtn)
     const { tourId } = e.target.dataset;
     bookTour(tourId);
   });
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert) showAlert('success', alertMessage, 20);
